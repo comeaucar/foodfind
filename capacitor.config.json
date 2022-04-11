@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "foodfind",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
