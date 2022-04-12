@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add A Restaurant</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="restaurantForm">
+    <ion-item>
+      <ion-label>Name:</ion-label>
+      <ion-input formControlName="name" required="true"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Description:</ion-label>
+      <ion-input formControlName="description" required="true"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Street:</ion-label>
+      <ion-input formControlName="street" required="true"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>City:</ion-label>
+      <ion-input formControlName="city" required="true"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Postal Code:</ion-label>
+      <ion-input formControlName="postal_code" required="true"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Tags:</ion-label>
+      <ion-input formControlName="tag" clearOnEdit="true" ></ion-input>
+      <ion-button expand="block" color="primary" (click)="addTag()"
+        >Add Tag</ion-button
+      >
+    </ion-item>
+    
+      <ion-chip *ngFor="let tag of tags" color="success">
+        <ion-icon name="pricetag-outline"></ion-icon>
+        <ion-label color="dark">{{tag}}</ion-label>
+      </ion-chip>
+    
+
+    <ion-button
+      expand="block"
+      color="primary"
+      type="submit"
+      (click)="submitRestaurant()"
+      >Submit</ion-button
+    >
+  </form>
+</ion-content>

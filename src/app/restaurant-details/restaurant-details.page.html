@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{restaurant.name}} Details</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card style="width: 90%;">
+    <ion-card-header>
+      <ion-card-subtitle>Restaurant</ion-card-subtitle>
+      <ion-card-title>{{restaurant.name}}</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      {{restaurant.description}}<br><br>
+      {{restaurant.address.street}}<br>
+      {{restaurant.address.postal_code}}<br>
+      {{restaurant.address.city}}
+    </ion-card-content>
+    <ion-card-footer>
+      <ion-chip style="margin-bottom: 5px;" *ngFor="let tag of restaurant.tags" color="success">
+        <ion-icon name="pricetag-outline"></ion-icon>
+        <ion-label color="dark">{{tag}}</ion-label>
+      </ion-chip>
+    </ion-card-footer>
+    <ion-button expand="block" color="warning" (click)="editRestaurant()">Edit</ion-button>
+    <ion-button color="danger" expand="block" (click)="deleteRestaurant()">Delete</ion-button>
+    
+  </ion-card>
+  <ion-item>
+    <ion-label>Add Rating</ion-label>
+    <ion-input type="number" min="0" max="5" placeholder="Please rate from 1-5"></ion-input>
+    <ion-button color="primary" expand="block" (click)="addRating()">Add Rating</ion-button>
+  </ion-item>
+</ion-content>
