@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      {{restaurant.name}} Location
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="margin-top: 20px;" *ngIf="!geocodeRes">
+  <ion-progress-bar type="indeterminate"></ion-progress-bar>
+</ion-content>
+<ion-content *ngIf="geocodeRes">
+  <div id="map" #map></div>
+</ion-content>

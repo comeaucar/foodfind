@@ -40,7 +40,8 @@ export class AddRestaurantPage implements OnInit {
       this.restaurantForm.value.name,
       newAddress,
       this.restaurantForm.value.description,
-      this.tags
+      this.tags,
+      []
     );
     await Storage.set({
       key: 'restaurant-' + (keys.length + 1).toString(),

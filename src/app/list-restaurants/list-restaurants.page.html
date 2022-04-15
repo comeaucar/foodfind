@@ -20,12 +20,12 @@
           {{restaurant.address.postal_code}}<br>
           {{restaurant.address.city}}
         </ion-card-content>
-        <ion-card-footer>
+        <ion-card-content>
           <ion-chip style="margin-bottom: 5px;" *ngFor="let tag of restaurant.tags" color="success">
             <ion-icon name="pricetag-outline"></ion-icon>
             <ion-label color="dark">{{tag}}</ion-label>
           </ion-chip>
-        </ion-card-footer>
+        </ion-card-content>
       </ion-card>
     </ion-item>
   </ion-list>

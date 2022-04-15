@@ -9,9 +9,29 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="large">FoodFind</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Things you can do</ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Add your favourite restaurants</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Rate restaurants</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Get directions to restaurants</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Share restaurants Test</ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-button expand="block" (click)="openMap()">Show map</ion-button>
+  <h4 style="margin-left: 15px; margin-right: 15px; margin-top: 40px;">Get started by clicking on the 'Restaurants' tab below!</h4>
+</ion-content>
 </ion-content>

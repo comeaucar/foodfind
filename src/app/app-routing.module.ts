@@ -21,6 +21,10 @@ const routes: Routes = [
   {
     path: 'edit-restaurant',
     loadChildren: () => import('./edit-restaurant/edit-restaurant.module').then( m => m.EditRestaurantPageModule)
+  },
+  {
+    path: 'restaurant-map',
+    loadChildren: () => import('./restaurant-map/restaurant-map.module').then( m => m.RestaurantMapPageModule)
   }
 ];
 @NgModule({
