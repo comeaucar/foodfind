@@ -50,5 +50,9 @@ export class RestaurantDetailsPage implements OnInit {
     this.router.navigate(['/restaurant-map', {data: JSON.stringify(this.restaurant)}])
   }
   
+  getDirections() {
+    this.router.navigate(['/restaurant-map', {data: JSON.stringify(this.restaurant), directions: true}])
+  }
+  
   
 }

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CapacitorGoogleMaps } from '@capacitor-community/capacitor-googlemaps-native';
+import { LatLng } from '@capacitor-community/capacitor-googlemaps-native/dist/esm/types/common/latlng.interface';
 import { Geolocation } from '@capacitor/geolocation';
 import Restaurant from '../models/Restaurant';
 
@@ -14,7 +15,15 @@ export class RestaurantMapPage implements OnInit {
   loading:boolean = true;
   restaurant: Restaurant;
   restaurantCoords: any;
+  directions: boolean
+  title: string
   geocodeRes: any = { lat: 0, lng: 0 };
+  userCoords: any = {
+    coords: {
+      latitude: 0,
+      longitude: 0
+    }
+  }
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -26,6 +35,12 @@ export class RestaurantMapPage implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.restaurant = JSON.parse(params['data']);
+      if (params['directions']) {
+        this.directions = true
+        this.title = "Directions"
+      } else {
+        this.title = this.restaurant.name + " Location"
+      }
     });
     this.getGeocode();
   }
@@ -35,11 +50,15 @@ export class RestaurantMapPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.createMap();
+    if (this.directions) {
+      this.createMap(true)
+    } else {
+      this.createMap();
+    }
     this.loading = false
   }
 
-  createMap() {
+  createMap(drawDirections?:boolean) {
     const boundingRect =
       this.mapView.nativeElement.getBoundingClientRect() as DOMRect;
 
@@ -58,14 +77,18 @@ export class RestaurantMapPage implements OnInit {
         type: 'normal', 
       });
 
-      this.showCurrentPosition();
+      if (drawDirections) {
+        this.showCurrentPosition(true);
+      } else {
+        this.showCurrentPosition()
+      }
     });
   }
 
-  async showCurrentPosition() {
+  async showCurrentPosition(directions?:boolean) {
     Geolocation.requestPermissions().then(async (premission) => {
       const coordinates = await Geolocation.getCurrentPosition();
-
+      this.userCoords = coordinates
       
       CapacitorGoogleMaps.addMarker({
         latitude: this.geocodeRes.lat,
@@ -74,16 +97,53 @@ export class RestaurantMapPage implements OnInit {
         snippet: this.restaurant.address.street,
       });
 
-      
-      CapacitorGoogleMaps.setCamera({
-        latitude: this.geocodeRes.lat,
-        longitude: this.geocodeRes.lng,
-        zoom: 12,
-        bearing: 0,
-      });
+      if (directions) {
+        CapacitorGoogleMaps.addMarker({
+          latitude: coordinates.coords.latitude,
+          longitude: coordinates.coords.longitude,
+          title: "Your current location",
+          snippet: `${coordinates.coords.latitude}, ${coordinates.coords.longitude}`,
+        });
+
+        const points: LatLng[] = [
+          {
+            latitude: this.userCoords.coords.latitude,
+            longitude: this.userCoords.coords.longitude
+          },
+          {
+            latitude: this.geocodeRes.lat,
+            longitude: this.geocodeRes.lng
+          }
+        ];
+  
+        CapacitorGoogleMaps.addPolyline({
+          points,
+          color: '#ff00ff',
+          width: 2
+        })
+
+        CapacitorGoogleMaps.setCamera({
+          latitude: (this.geocodeRes.lat + this.userCoords.coords.latitude) / 2,
+          longitude: (this.geocodeRes.lng + this.userCoords.coords.longitude) / 2,
+          zoom: 2,
+          bearing: 0,
+        });
+      } else {
 
       
+        CapacitorGoogleMaps.setCamera({
+          latitude: this.geocodeRes.lat,
+          longitude: this.geocodeRes.lng,
+          zoom: 12,
+          bearing: 0,
+        });
+      }
+      
     })
+  }
+
+  drawDirections() {
+    
   }
 
   ionViewDidLeave() {
