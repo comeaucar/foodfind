@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Storage } from '@capacitor/storage';
-import Address from '../models/Address';
 
 @Component({
   selector: 'app-list-restaurants',
@@ -19,6 +18,7 @@ export class ListRestaurantsPage implements OnInit {
     this.getRestaurants();
   }
 
+
   async getRestaurants() {
     await Storage.keys().then((v) => {
       this.keys = v.keys;
@@ -34,6 +34,7 @@ export class ListRestaurantsPage implements OnInit {
   async addToArray(key: string) {
     let result = await Storage.get({ key: key });
     this.restaurants.push(JSON.parse(result.value));
+    this.list()
   }
 
   list() {
@@ -47,4 +48,17 @@ export class ListRestaurantsPage implements OnInit {
   addRestaurant() {
     this.router.navigate(['/add-restaurant'])
   }
+
+  getRating(currRestaurant: any) {
+    if (currRestaurant.ratings.length == 0) {
+      return 0
+    }
+    const sum = currRestaurant.ratings.reduce((prev, curr) => {
+      return prev + curr
+    })
+
+    return sum / currRestaurant.ratings.length
+  }
+
+  
 }

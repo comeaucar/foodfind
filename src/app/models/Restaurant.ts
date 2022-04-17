@@ -24,4 +24,7 @@ export default class Restaurant {
   addRating(rating:number) {
     this.ratings.push(rating)
   }
+
+  
+    
 }

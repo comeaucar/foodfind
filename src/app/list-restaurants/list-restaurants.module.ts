@@ -8,13 +8,15 @@ import { ListRestaurantsPageRoutingModule } from './list-restaurants-routing.mod
 
 import { ListRestaurantsPage } from './list-restaurants.page';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { IonicRatingComponentModule } from 'ionic-rating-component';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     ListRestaurantsPageRoutingModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    IonicRatingComponentModule
   ],
   declarations: [ListRestaurantsPage]
 })

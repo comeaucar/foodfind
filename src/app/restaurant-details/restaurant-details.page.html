@@ -8,40 +8,77 @@
 </ion-header>
 
 <ion-content>
-  <ion-card style="width: 90%;">
+  <ion-card style="width: 90%">
     <ion-card-header>
       <ion-card-subtitle>Restaurant</ion-card-subtitle>
       <ion-card-title>{{restaurant.name}}</ion-card-title>
     </ion-card-header>
-  
+
     <ion-card-content>
-      {{restaurant.description}}<br><br>
-      {{restaurant.address.street}}<br>
-      {{restaurant.address.postal_code}}<br>
+      {{restaurant.description}}<br /><br />
+      {{restaurant.address.street}}<br />
+      {{restaurant.address.postal_code}}<br />
       {{restaurant.address.city}}
     </ion-card-content>
     <ion-card-content>
-      <ion-chip style="margin-bottom: 5px;" *ngFor="let tag of restaurant.tags" color="success">
+      <ion-chip
+        style="margin-bottom: 5px"
+        *ngFor="let tag of restaurant.tags"
+        color="success"
+      >
         <ion-icon name="pricetag-outline"></ion-icon>
         <ion-label color="dark">{{tag}}</ion-label>
       </ion-chip>
     </ion-card-content>
-    <ion-button expand="block" color="warning" (click)="editRestaurant()">Edit</ion-button>
-    <ion-button color="danger" expand="block" (click)="deleteRestaurant()">Delete</ion-button>
-    
+    <ion-button expand="block" (click)="shareRestaurant(restaurant)">
+      Share
+      <ion-icon
+        name="share-outline"
+        size="large"
+        (click)="shareRestaurant(restaurant)"
+      ></ion-icon>
+    </ion-button>
+    <ion-button expand="block" color="warning" (click)="editRestaurant()"
+      >Edit</ion-button
+    >
+    <ion-button color="danger" expand="block" (click)="deleteRestaurant()"
+      >Delete</ion-button
+    >
   </ion-card>
   <ion-item>
     <ion-label>Add Rating</ion-label>
-    <ion-input type="number" min="0" max="5" placeholder="Please rate from 1-5" [(ngModel)]="rating"></ion-input>
-    <ion-button color="primary" expand="block" (click)="addRating()">Add Rating</ion-button>
+    <ion-input
+      type="number"
+      min="0"
+      max="5"
+      placeholder="Please rate from 1-5"
+      [(ngModel)]="rating"
+    ></ion-input>
+    <ion-button color="success" expand="block" (click)="addRating()"
+      >Add Rating</ion-button
+    >
   </ion-item>
   <ion-content *ngIf="showSuccess == true">
-  <ion-chip style="margin-bottom: 5px;" color="success">
-    <ion-icon name="star-outline"></ion-icon>
-    <ion-label color="dark">Added rating!</ion-label>
-    <ion-icon name="close" (click)="closeChip()"></ion-icon>
-  </ion-chip>
-</ion-content>
-<ion-button (click)="showLocation()">Show Location</ion-button>
-<ion-button (click)="getDirections()">Get Directions</ion-button>
+    <ion-chip style="margin-bottom: 5px" color="success">
+      <ion-icon name="star-outline"></ion-icon>
+      <ion-label color="dark">Added rating!</ion-label>
+      <ion-icon name="close" (click)="closeChip()"></ion-icon>
+    </ion-chip>
+  </ion-content>
+  <ion-button expand="block" color="warning" (click)="editRatings()"
+    >Edit Ratings</ion-button
+  >
+  <ion-content *ngIf="showEditRatings">
+    <ion-list>
+      <ion-chip *ngFor="let rating of ratings; let i = index">
+        <ion-icon name="star-outline"></ion-icon>
+        <ion-label>{{rating}}</ion-label>
+        <ion-icon name="close" (click)="removeRating(i)"></ion-icon>
+      </ion-chip>
+    </ion-list>
+  </ion-content>
+  <ion-button expand="block" (click)="showLocation()">Show Location</ion-button>
+  <ion-button expand="block" (click)="getDirections()"
+    >Get Directions</ion-button
+  >
 </ion-content>
