@@ -11,7 +11,7 @@ import Restaurant from '../models/Restaurant';
   styleUrls: ['./restaurant-map.page.scss'],
 })
 export class RestaurantMapPage implements OnInit {
-  loading = true;
+  loading:boolean = true;
   restaurant: Restaurant;
   restaurantCoords: any;
   geocodeRes: any = { lat: 0, lng: 0 };
@@ -36,6 +36,7 @@ export class RestaurantMapPage implements OnInit {
 
   ionViewDidEnter() {
     this.createMap();
+    this.loading = false
   }
 
   createMap() {
@@ -54,7 +55,7 @@ export class RestaurantMapPage implements OnInit {
 
     CapacitorGoogleMaps.addListener('onMapReady', async () => {
       CapacitorGoogleMaps.setMapType({
-        type: 'normal', // hybrid, satellite, terrain
+        type: 'normal', 
       });
 
       this.showCurrentPosition();
@@ -65,7 +66,7 @@ export class RestaurantMapPage implements OnInit {
     Geolocation.requestPermissions().then(async (premission) => {
       const coordinates = await Geolocation.getCurrentPosition();
 
-      // Create our current location marker
+      
       CapacitorGoogleMaps.addMarker({
         latitude: this.geocodeRes.lat,
         longitude: this.geocodeRes.lng,
@@ -73,14 +74,16 @@ export class RestaurantMapPage implements OnInit {
         snippet: this.restaurant.address.street,
       });
 
-      // Focus the camera
+      
       CapacitorGoogleMaps.setCamera({
         latitude: this.geocodeRes.lat,
         longitude: this.geocodeRes.lng,
         zoom: 12,
         bearing: 0,
       });
-    });
+
+      
+    })
   }
 
   ionViewDidLeave() {
@@ -102,7 +105,6 @@ export class RestaurantMapPage implements OnInit {
         },
         () => {
           console.log('request complete');
-          this.loading = false;
         }
       );
   }

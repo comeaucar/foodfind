@@ -10,7 +10,4 @@ export class Tab1Page {
 
   constructor(private router: Router) {}
 
-  openMap() {
-    this.router.navigate(['/restaurant-map'])
-  }
 }
