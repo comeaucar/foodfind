@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import Address from '../models/Address';
 import Restaurant from '../models/Restaurant';
 import { Storage } from '@capacitor/storage';
 import { Router } from '@angular/router';
+import { InputValidationService } from '../services/input-validation.service';
 
 @Component({
   selector: 'app-add-restaurant',
@@ -12,17 +13,26 @@ import { Router } from '@angular/router';
 })
 export class AddRestaurantPage implements OnInit {
   restaurantForm = new FormGroup({
-    name: new FormControl(''),
-    description: new FormControl(''),
+    name: new FormControl('', Validators.required),
+    description: new FormControl('', Validators.required),
     tag: new FormControl(''),
-    street: new FormControl(''),
-    postal_code: new FormControl(''),
-    city: new FormControl(''),
+    street: new FormControl('', Validators.required),
+    postal_code: new FormControl('', Validators.required),
+    city: new FormControl('', Validators.required),
   });
 
   tags = [];
+  invalidPostalCode = false
+  emptyField = false
 
   async submitRestaurant() {
+    if ((this.restaurantForm.value.name || this.restaurantForm.value.description || this.restaurantForm.value.street || this.restaurantForm.value.city) === '') {
+      this.emptyField = true
+      return
+    } else if (!this.validationService.validatePostalCode(this.restaurantForm.value.postal_code)) {
+      this.invalidPostalCode = true
+      return
+    }
     let keys = []
     let newAddress = new Address(
       this.restaurantForm.value.street,
@@ -58,7 +68,7 @@ export class AddRestaurantPage implements OnInit {
     this.restaurantForm.controls.tag.reset()
   }
 
-  constructor(private router:Router) {}
+  constructor(private router:Router, private validationService: InputValidationService) {}
 
   ngOnInit() {}
 }
