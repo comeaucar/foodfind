@@ -4,8 +4,8 @@ export default class Restaurant {
   name: string;
   address: Address;
   description: string;
-    tags: [string];
-    ratings = []
+  tags: [string];
+  ratings = []
   constructor(id, name, add, desc, tags, ratings?:any) {
     this.id = id;
     this.name = name;

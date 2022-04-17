@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Storage } from '@capacitor/storage';
+import Address from '../models/Address';
 
 @Component({
   selector: 'app-list-restaurants',
@@ -8,6 +9,8 @@ import { Storage } from '@capacitor/storage';
   styleUrls: ['./list-restaurants.page.scss'],
 })
 export class ListRestaurantsPage implements OnInit {
+  search: string;
+
   keys = [];
   restaurants = [];
   constructor(private router:Router) {}

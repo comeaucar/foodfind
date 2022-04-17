@@ -4,21 +4,26 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-button expand="block" (click)="addRestaurant()">Add New Restaurant</ion-button>
+<ion-content [fullscreen]="true">
+  <ion-searchbar animated [(ngModel)]="search" showCancelButton="focus" placeholder="Search Restaurant"></ion-searchbar>
+
   <ion-list>
-    <ion-item *ngFor="let restaurant of restaurants">
-      <ion-card style="width: 100%;" (click)="showDetails($event, restaurant)">
+    <ion-item *ngFor="let restaurant of restaurants | filter:search">
+      <ion-card style="width: 100%;">
         <ion-card-header>
           <ion-card-subtitle>Restaurant</ion-card-subtitle>
-          <ion-card-title>{{restaurant.name}}</ion-card-title>
+          <ion-card-title>Name: {{restaurant.name}}</ion-card-title>
         </ion-card-header>
       
         <ion-card-content>
-          {{restaurant.description}}<br><br>
-          {{restaurant.address.street}}<br>
-          {{restaurant.address.postal_code}}<br>
-          {{restaurant.address.city}}
+          <strong> Description: </strong>{{restaurant.description}}<br>
+          <strong> Address: </strong>{{restaurant.address.street}} - {{restaurant.address.city}} - {{restaurant.address.postal_code}}<br>
+          <strong> Tags: </strong>{{restaurant.description.tags}}<br>
+          <strong> Rating: </strong>{{restaurant.description.ratings}}<br>
+
+        
+        <button style="font-size: larger; color: black ; float: right;" (click)="showDetails($event, restaurant)">Show details</button>
+           
         </ion-card-content>
         <ion-card-content>
           <ion-chip style="margin-bottom: 5px;" *ngFor="let tag of restaurant.tags" color="success">
@@ -29,4 +34,6 @@
       </ion-card>
     </ion-item>
   </ion-list>
+
+  <ion-button expand="block" (click)="addRestaurant()">Add New Restaurant</ion-button>
 </ion-content>
