@@ -1,3 +1,4 @@
+//Defines restaurant object
 import Address from './Address';
 export default class Restaurant {
   id: string;
@@ -19,12 +20,12 @@ export default class Restaurant {
     }
   }
 
-  
+
 
   addRating(rating:number) {
     this.ratings.push(rating)
   }
 
-  
-    
+
+
 }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-
+//link (routes) for the pages
 const routes: Routes = [
   {
     path: '',

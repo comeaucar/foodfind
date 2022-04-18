@@ -1,3 +1,4 @@
+//Defines Address object
 export default class Address {
   street: string;
   postal_code: string;

@@ -8,7 +8,7 @@ import {HttpClientModule} from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IonicRatingComponentModule } from 'ionic-rating-component';
-
+//registers the modules
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
