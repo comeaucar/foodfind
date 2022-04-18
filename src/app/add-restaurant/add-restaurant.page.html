@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="isEdit === false">
     <ion-item *ngIf="emptyField === true">
     <ion-label color="danger">All fields must be filled out</ion-label>
     <ion-icon name="alert-circle-outline" color="danger"></ion-icon>
@@ -49,6 +49,7 @@
       <ion-chip *ngFor="let tag of tags" color="success">
         <ion-icon name="pricetag-outline"></ion-icon>
         <ion-label color="dark">{{tag}}</ion-label>
+        <ion-icon name="close" (click)="removeTag(i)"></ion-icon>
       </ion-chip>
     
 
@@ -60,4 +61,61 @@
       >Submit</ion-button
     >
   </form>
+</ion-content>
+
+
+<ion-content *ngIf="isEdit === true">
+  <ion-item *ngIf="emptyField === true">
+  <ion-label color="danger">All fields must be filled out</ion-label>
+  <ion-icon name="alert-circle-outline" color="danger"></ion-icon>
+</ion-item>
+<ion-item *ngIf="invalidPostalCode === true">
+  <ion-label color="danger">Invalid Postal Code</ion-label>
+  <ion-icon name="alert-circle-outline" color="danger"></ion-icon>
+</ion-item>
+
+<form [formGroup]="restaurantForm">
+  <ion-item>
+    <ion-label>Restaurant Name:</ion-label>
+    <ion-input type="text" formControlName="name" required="true"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Description:</ion-label>
+    <ion-input type="text" formControlName="description" required="true"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Street:</ion-label>
+    <ion-input formControlName="street" required="true" ></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>City:</ion-label>
+    <ion-input formControlName="city" required="true" ></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Postal Code:</ion-label>
+    <ion-input formControlName="postal_code" required="true"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Tags:</ion-label>
+    <ion-input formControlName="tag" clearOnEdit="true"></ion-input>
+    <ion-button expand="block" color="primary" (click)="addTag()"
+      >Add Tag</ion-button
+    >
+  </ion-item>
+  
+    <ion-chip *ngFor="let tag of tags; let i = index" color="success">
+      <ion-icon name="pricetag-outline"></ion-icon>
+      <ion-label color="dark">{{tag}}</ion-label>
+      <ion-icon name="close" (click)="removeTag(i)"></ion-icon>
+    </ion-chip>
+  
+
+  <ion-button
+    expand="block"
+    color="warning"
+    type="submit"
+    (click)="submitEditRestaurant()"
+    >Submit Edits</ion-button
+  >
+</form>
 </ion-content>

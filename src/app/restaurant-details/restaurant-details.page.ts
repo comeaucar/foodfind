@@ -77,4 +77,10 @@ export class RestaurantDetailsPage implements OnInit {
       dialogTitle: "Share this restaurant"
     })
   }
+
+  editRestaurant(restaurant: any) {
+    console.log(restaurant)
+    let sendRes = JSON.stringify(restaurant)
+    this.router.navigate(['/add-restaurant', {data:sendRes, edit: true}])
+  }
 }
