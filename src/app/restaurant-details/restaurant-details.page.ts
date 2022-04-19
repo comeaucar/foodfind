@@ -35,7 +35,7 @@ export class RestaurantDetailsPage implements OnInit {
   }
 
   addRating() {
-    //adds rating of the restaurant
+    //adds rating for the restaurant
     let currRestaurant = new Restaurant(this.restaurant.id, this.restaurant.name, this.restaurant.address, this.restaurant.description, this.restaurant.tags, this.restaurant.ratings)
     if (this.rating <= 5) {
       currRestaurant.addRating(this.rating)
@@ -57,12 +57,12 @@ export class RestaurantDetailsPage implements OnInit {
   }
 
   getDirections() {
-    //show the direction of restaurant
+    //shows directions to restaurant
     this.router.navigate(['/restaurant-map', {data: JSON.stringify(this.restaurant), directions: true}])
   }
 
   editRatings() {
-    //rating of restaurant
+    //toggles rating editing
     this.showEditRatings = !this.showEditRatings
   }
 
@@ -77,7 +77,7 @@ export class RestaurantDetailsPage implements OnInit {
   }
 
   async shareRestaurant(restaurant:any) {
-    // share the restaurant address
+    // share the restaruant
     await Share.share({
       title: "Check out this restaurant",
       text: `${restaurant.name}, ${restaurant.description}, ${restaurant.address.street}, ${restaurant.address.city} - ${restaurant.address.postal_code}`,
@@ -87,7 +87,6 @@ export class RestaurantDetailsPage implements OnInit {
 
   editRestaurant(restaurant: any) {
     //edit the restaurant
-    console.log(restaurant)
     let sendRes = JSON.stringify(restaurant)
     this.router.navigate(['/add-restaurant', {data:sendRes, edit: true}])
   }

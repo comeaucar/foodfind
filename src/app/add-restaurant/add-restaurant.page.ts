@@ -117,7 +117,6 @@ export class AddRestaurantPage implements OnInit {
         this.isEdit = true
         this.editRestaurant = JSON.parse(params['data'])
         this.tags = this.editRestaurant.tags
-        console.log(this.editRestaurant)
         this.restaurantForm.patchValue({
           name: this.editRestaurant.name,
           description: this.editRestaurant.description,

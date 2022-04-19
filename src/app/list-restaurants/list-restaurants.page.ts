@@ -38,12 +38,8 @@ export class ListRestaurantsPage implements OnInit {
   async addToArray(key: string) {
     let result = await Storage.get({ key: key });
     this.restaurants.push(JSON.parse(result.value));
-    this.list()
   }
 
-  list() {
-    console.log(this.restaurants)
-  }
 
   showDetails(e, restaurant) {
     this.router.navigate(['/restaurant-details', {data: JSON.stringify(restaurant)}])

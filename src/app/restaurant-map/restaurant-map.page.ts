@@ -158,7 +158,6 @@ export class RestaurantMapPage implements OnInit {
       )
       .subscribe(
         (res: any) => {
-          console.log(res?.items[0].position);
           this.geocodeRes = res?.items[0].position;
         },
         (error) => {
