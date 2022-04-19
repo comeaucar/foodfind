@@ -8,6 +8,7 @@ import { Storage } from '@capacitor/storage';
   styleUrls: ['./list-restaurants.page.scss'],
 })
 export class ListRestaurantsPage implements OnInit {
+  //variables declared
   search: string;
 
   keys = [];
@@ -15,11 +16,14 @@ export class ListRestaurantsPage implements OnInit {
   constructor(private router:Router) {}
 
   ngOnInit() {
+    //function calls when the page initializes
     this.getRestaurants();
+
   }
 
 
   async getRestaurants() {
+    //reading data from the storage
     await Storage.keys().then((v) => {
       this.keys = v.keys;
     });
@@ -60,5 +64,5 @@ export class ListRestaurantsPage implements OnInit {
     return sum / currRestaurant.ratings.length
   }
 
-  
+
 }

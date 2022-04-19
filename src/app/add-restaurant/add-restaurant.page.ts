@@ -12,6 +12,7 @@ import { InputValidationService } from '../services/input-validation.service';
   styleUrls: ['./add-restaurant.page.scss'],
 })
 export class AddRestaurantPage implements OnInit {
+  //Form elements to add a restaurant
   restaurantForm = new FormGroup({
     name: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
@@ -20,7 +21,7 @@ export class AddRestaurantPage implements OnInit {
     postal_code: new FormControl('', Validators.required),
     city: new FormControl('', Validators.required),
   });
-
+//variables initalized
   tags = [];
   invalidPostalCode = false
   emptyField = false
@@ -28,6 +29,7 @@ export class AddRestaurantPage implements OnInit {
   editRestaurant: any
 
   async submitRestaurant() {
+    //validation check
     if ((this.restaurantForm.value.name || this.restaurantForm.value.description || this.restaurantForm.value.street || this.restaurantForm.value.city) === '') {
       this.emptyField = true
       return
@@ -36,17 +38,19 @@ export class AddRestaurantPage implements OnInit {
       return
     }
     let keys = []
+    //Address object initialized with value
     let newAddress = new Address(
       this.restaurantForm.value.street,
       this.restaurantForm.value.postal_code,
       this.restaurantForm.value.city
     );
-    
+
     await Storage.keys().then((res) => {
       keys = res.keys.filter((e) => {
         return e.split('-')[0] === "restaurant"
       })
     })
+    //A new restaurant object is created with form values
     let newRestaurant = new Restaurant(
       "restaurant-" + (keys.length + 1).toString(),
       this.restaurantForm.value.name,
@@ -55,11 +59,12 @@ export class AddRestaurantPage implements OnInit {
       this.tags,
       []
     );
+    //restaurant is stored to the database
     await Storage.set({
       key: 'restaurant-' + (keys.length + 1).toString(),
       value: JSON.stringify(newRestaurant),
     });
-    
+
     this.router.navigate(['/tabs/tab2']).then(() => {
       window.location.reload()
     })

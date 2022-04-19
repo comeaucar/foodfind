@@ -12,6 +12,7 @@ import Restaurant from '../models/Restaurant';
   styleUrls: ['./restaurant-map.page.scss'],
 })
 export class RestaurantMapPage implements OnInit {
+  //initialize variables
   loading:boolean = true;
   restaurant: Restaurant;
   restaurantCoords: any;
@@ -74,7 +75,7 @@ export class RestaurantMapPage implements OnInit {
 
     CapacitorGoogleMaps.addListener('onMapReady', async () => {
       CapacitorGoogleMaps.setMapType({
-        type: 'normal', 
+        type: 'normal',
       });
 
       if (drawDirections) {
@@ -89,7 +90,7 @@ export class RestaurantMapPage implements OnInit {
     Geolocation.requestPermissions().then(async (premission) => {
       const coordinates = await Geolocation.getCurrentPosition();
       this.userCoords = coordinates
-      
+
       CapacitorGoogleMaps.addMarker({
         latitude: this.geocodeRes.lat,
         longitude: this.geocodeRes.lng,
@@ -115,7 +116,7 @@ export class RestaurantMapPage implements OnInit {
             longitude: this.geocodeRes.lng
           }
         ];
-  
+
         CapacitorGoogleMaps.addPolyline({
           points,
           color: '#ff00ff',
@@ -130,7 +131,7 @@ export class RestaurantMapPage implements OnInit {
         });
       } else {
 
-      
+
         CapacitorGoogleMaps.setCamera({
           latitude: this.geocodeRes.lat,
           longitude: this.geocodeRes.lng,
@@ -138,12 +139,12 @@ export class RestaurantMapPage implements OnInit {
           bearing: 0,
         });
       }
-      
+
     })
   }
 
   drawDirections() {
-    
+
   }
 
   ionViewDidLeave() {
