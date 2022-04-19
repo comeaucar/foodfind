@@ -52,18 +52,22 @@ export class RestaurantDetailsPage implements OnInit {
   }
 
   showLocation() {
+    // show the location of restaurant
     this.router.navigate(['/restaurant-map', {data: JSON.stringify(this.restaurant)}])
   }
 
   getDirections() {
+    //show the direction of restaurant
     this.router.navigate(['/restaurant-map', {data: JSON.stringify(this.restaurant), directions: true}])
   }
 
   editRatings() {
+    //rating of restaurant
     this.showEditRatings = !this.showEditRatings
   }
 
   removeRating(index: number) {
+    //remove or edit the rating of restaurant
     this.ratings.splice(index, 1)
     this.restaurant.ratings = this.ratings
     Storage.set({
@@ -73,6 +77,7 @@ export class RestaurantDetailsPage implements OnInit {
   }
 
   async shareRestaurant(restaurant:any) {
+    // share the restaurant address
     await Share.share({
       title: "Check out this restaurant",
       text: `${restaurant.name}, ${restaurant.description}, ${restaurant.address.street}, ${restaurant.address.city} - ${restaurant.address.postal_code}`,
@@ -81,6 +86,7 @@ export class RestaurantDetailsPage implements OnInit {
   }
 
   editRestaurant(restaurant: any) {
+    //edit the restaurant
     console.log(restaurant)
     let sendRes = JSON.stringify(restaurant)
     this.router.navigate(['/add-restaurant', {data:sendRes, edit: true}])
