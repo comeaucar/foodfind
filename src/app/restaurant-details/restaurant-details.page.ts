@@ -34,6 +34,10 @@ export class RestaurantDetailsPage implements OnInit {
     })
   }
 
+  goBack() {
+    this.router.navigate(['/tabs/tab2'])
+  }
+
   addRating() {
     //adds rating for the restaurant
     let currRestaurant = new Restaurant(this.restaurant.id, this.restaurant.name, this.restaurant.address, this.restaurant.description, this.restaurant.tags, this.restaurant.ratings)
@@ -53,12 +57,16 @@ export class RestaurantDetailsPage implements OnInit {
 
   showLocation() {
     // show the location of restaurant
-    this.router.navigate(['/restaurant-map', {data: JSON.stringify(this.restaurant)}])
+    this.router.navigate(['/restaurant-map', { data: JSON.stringify(this.restaurant) }]).then(() => {
+      window.location.reload()
+    })
   }
 
   getDirections() {
     //shows directions to restaurant
-    this.router.navigate(['/restaurant-map', {data: JSON.stringify(this.restaurant), directions: true}])
+    this.router.navigate(['/restaurant-map', { data: JSON.stringify(this.restaurant), directions: JSON.stringify({ res: true }) }]).then(() => {
+      window.location.reload()
+    })
   }
 
   editRatings() {

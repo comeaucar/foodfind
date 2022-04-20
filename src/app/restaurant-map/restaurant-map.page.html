@@ -4,14 +4,14 @@
       {{title}}
     </ion-title>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-icon size="large" name="arrow-back-outline" (click)="goBack()"></ion-icon>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content style="margin-top: 20px;" *ngIf="!geocodeRes">
-  <ion-progress-bar type="indeterminate"></ion-progress-bar>
-</ion-content>
-<ion-content *ngIf="geocodeRes">
+
+<ion-progress-bar *ngIf="loading === true" type="indeterminate"></ion-progress-bar>
+
+<ion-content>
   <div id="map" #map></div>
 </ion-content>
