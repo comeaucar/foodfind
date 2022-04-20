@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CapacitorGoogleMaps } from '@capacitor-community/capacitor-googlemaps-native';
 import {SplashScreen} from '@capacitor/splash-screen'
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +9,11 @@ import {SplashScreen} from '@capacitor/splash-screen'
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit{
-  constructor() { }
+  constructor() { 
+    CapacitorGoogleMaps.initialize({
+      key: environment.mapsKey
+    })
+  }
   
   ngOnInit(){
     //this.showSplashScreen()
