@@ -12,7 +12,60 @@ export class ListRestaurantsPage implements OnInit {
   search: string;
 
   keys = [];
-  restaurants = [];
+ //sample data
+ addresses = [
+  {
+    street:"819 Gerrard Street East",
+    postal_code:"M4M1Y8",
+    city:"Toronto"
+
+
+  },
+  {
+    street:"64 Edward Street",
+    postal_code:"M5G1C9",
+    city:"Toronto"
+
+
+  },
+  {
+    street:"150 Dundas Street West",
+    postal_code:"M5G1C6",
+    city:"Toronto"
+
+
+  },
+
+  ];
+
+  restaurants = [
+    {
+      id: "1",
+      name: "Wynona Toronto",
+      address: this.addresses[0],
+      description: "Excellent restaurant in downtown Toronto ",
+      tags: ["pasta","Italian cusine"],
+      ratings : [4,5,4],
+    },
+    {
+      id: "2",
+      name: "Monkey sushi",
+      address: this.addresses[1],
+      description: "Number one Japanese restaurant with fabulous sushi",
+      tags: ["sushi","Japanese cuisine","seafood"],
+      ratings : [5,5,3],
+    },
+    {
+      id: "3",
+      name: "Subway",
+      address: this.addresses[2],
+      description: "Fast food restaurant",
+      tags: ["fast food","bread","downtown"],
+      ratings : [2,3,3],
+    },
+  ];
+  //end sample data
+
   constructor(private router:Router) {}
 
   ngOnInit() {
